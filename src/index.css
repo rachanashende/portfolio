@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --color-ink: #1f1c26;
+  --color-ink-soft: #4a4555;
+  --color-ink-muted: #6b6577;
+
+  --color-cream: #fbf8f3;
+  --color-offwhite: #fdfcfa;
+  --color-lavender: #e6dfff;
+  --color-lavender-deep: #b9a8f5;
+  --color-pink: #ffe1ea;
+  --color-pink-deep: #f5a9c2;
+  --color-peach: #ffe4d1;
+  --color-peach-deep: #f8b98f;
+  --color-sky: #dcefff;
+  --color-sky-deep: #9ccbf5;
+  --color-mint: #dcf5ea;
+  --color-mint-deep: #8fd8b8;
+  --color-mist: #efedf2;
+
+  --color-laser: #ff3b45;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    overflow-x: clip;
+  }
+
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  ::selection {
+    background: #ffd3e2;
+    color: #1f1c26;
+  }
+
+  :focus-visible {
+    outline: 2.5px solid #8b74ea;
+    outline-offset: 3px;
+    border-radius: 10px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* Laser cursor: hide the native pointer only when the custom one is active.
+   Text fields keep their I-beam so editing stays comfortable. */
+html.has-laser,
+html.has-laser * {
+  cursor: none;
+}
+html.has-laser input,
+html.has-laser textarea {
+  cursor: text;
+}
+
+@layer components {
+  .glass {
+    background: rgb(255 255 255 / 0.62);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border: 1px solid rgb(255 255 255 / 0.85);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.9) inset,
+      0 18px 50px -24px rgb(76 58 120 / 0.22);
+  }
+
+  .eyebrow {
+    @apply text-xs font-medium tracking-[0.18em] uppercase text-ink-muted;
+  }
+
+  .section-title {
+    @apply text-[clamp(2.4rem,6vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-ink;
+  }
+
+  .text-gradient {
+    background: linear-gradient(100deg, #8b74ea 0%, #e77fa6 45%, #f29a6b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(4%, -6%, 0) scale(1.06);
+  }
+  66% {
+    transform: translate3d(-5%, 4%, 0) scale(0.96);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes tail-sway {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes cat-breathe {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.025);
+  }
+}
+
+@keyframes eye-wander {
+  0%,
+  18% {
+    transform: translate(0, 0);
+  }
+  25%,
+  42% {
+    transform: translate(2.2px, -0.6px);
+  }
+  50%,
+  68% {
+    transform: translate(-2.2px, 0.8px);
+  }
+  75%,
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes scroll-dot {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
